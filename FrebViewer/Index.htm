@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>FREB Viewer</title>
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min-1.11.1.js"></script>
+    <script src="/Scripts/i18n/grid.locale-en.js"></script>
+    <script src="/Scripts/jquery.jqGrid.js"></script>
+    <script src="/Scripts/FREBGrid.js"></script>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color: rgb(240, 240, 240); text-shadow: 1px 1px 15px #f0f0f0;" href="/">Azure Websites FREB Viewer</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="mailto:rajrang@microsoft.com?Subject=FREBViewer Site Extension" target="_top">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+    <div class="container body-content">
+        <div id="container">
+            <div>
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+        <br />
+        <div style="width:200px;">
+            <h4>Search</h4>
+            <span>FREB contains keyword</span><br />
+            <input type="search" class="form-control" id="txtSearch" /><br />
+            <button id="btnSearch" class="btn btn-primary">Find</button>
+            <button id="btnReset" class="btn btn-primary">Reset</button><br />
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; 2014 Rajkumar Rangaraj</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+
