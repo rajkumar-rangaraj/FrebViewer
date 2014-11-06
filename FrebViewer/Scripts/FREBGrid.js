@@ -41,10 +41,7 @@
             var grid = $('#grid'),
             selRowId = grid.jqGrid('getGridParam', 'selrow'),
             FileName = grid.jqGrid('getCell', selRowId, 'FileName');
-            //alert(cellValue);
-                     //FileName = FileName.replace('.xml', '')
             var url = "/GetFile?filename=" + FileName;
-                     //var url = "/GetFile?" + FileName;
             window.open(url);
         },
         loadComplete: function () {
@@ -76,6 +73,5 @@
         var wid = $("#container").width();
         $("#grid").jqGrid('setGridWidth', (wid));
     }).trigger('resize');
-
 });
 

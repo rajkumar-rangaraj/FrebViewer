@@ -15,27 +15,29 @@ namespace FrebViewer.Controllers
     {
         public FrebViewer.Models.Grid Get()
         {
-            NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-            string sidx = nvc["sidx"];
-            string sord = nvc["sord"];
-            int page = int.Parse(nvc["page"]);
-            int rows = int.Parse(nvc["rows"]);
+            NameValueCollection queryString = HttpUtility.ParseQueryString(Request.RequestUri.Query);
+            string sidx = queryString["sidx"];
+            string sord = queryString["sord"];
+            int page = int.Parse(queryString["page"]);
+            int rows = int.Parse(queryString["rows"]);
+            
             bool _search;
-            bool.TryParse(nvc["_search"], out _search);
-            string searchField = nvc["searchField"];
-            string searchString = nvc["searchString"];
-            string searchOper = nvc["searchOper"];
-            string SearchValue = nvc["SearchValue"];
+            bool.TryParse(queryString["_search"], out _search);
+            string searchField = queryString["searchField"];
+            string searchString = queryString["searchString"];
+            string searchOper = queryString["searchOper"];
+            string SearchValue = queryString["SearchValue"];
 
             //&searchField=FileName &searchString=abcd &searchOper=eq&filters=
-            var webapi = new Files();
-            var headers = webapi.GetHeaders();
-            
-            
+            var files = new Files();
+            IEnumerable<FrebViewer.Models.Header> headers;            
 
             if (SearchValue != "")
             {
-                headers = webapi.GetHeaders(SearchValue);
+                headers = files.GetHeaders(SearchValue);
+            }
+            else{
+                headers = files.GetHeaders(); 
             }
 
             if (searchString!= null)
@@ -49,7 +51,7 @@ namespace FrebViewer.Controllers
             switch (searchOper)
             {
                 case "eq":
-                    if (searchField == "FileName")
+                    if (searchField == "FileName") //hard-coded values should be modified
                         headers = headers.Where(x => x.FileName.ToLower().Equals(searchString)).ToList();
                     else if (searchField == "URL")
                         headers = headers.Where(x => x.URL.ToLower().Equals(searchString)).ToList();
@@ -100,11 +102,6 @@ namespace FrebViewer.Controllers
                     break;
             }
 
-            //if(_search)
-            //{
-            //    headers = headers.Where(x => x.FileName.Equals(searchString)).ToList();
-            //}
-
             int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
 
@@ -113,7 +110,6 @@ namespace FrebViewer.Controllers
 
             if (sord.ToUpper() == "DESC")
             {
-                //sidx
                 if (sidx == "FileName")
                     headers = headers.OrderByDescending(s => s.FileName);
                 if (sidx == "URL")
@@ -147,20 +143,6 @@ namespace FrebViewer.Controllers
                 headers = headers.Skip(pageIndex * pageSize).Take(pageSize);
             }
 
-            //HeaderwithPaging hpage = new HeaderwithPaging
-            //{
-            //    header = headers,
-            //    Page = 10
-            //};
-
-            // return View(hpage);
-
-
-            //var jsonData = new
-            //{
-
-            //};
-
             var jsonData = new FrebViewer.Models.Grid
             {
                 total = totalPages,
@@ -169,8 +151,6 @@ namespace FrebViewer.Controllers
                 rows = headers
             };
 
-
-            //return Json(jsonData, JsonRequestBehavior.AllowGet);
             return jsonData;
 
         }       

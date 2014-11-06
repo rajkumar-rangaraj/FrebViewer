@@ -30,7 +30,6 @@ namespace FrebViewer
                     flag = false;
 
 
-
                 string fileLocation = WebConfigurationManager.AppSettings["location"];
                 FileInfo[] files = new DirectoryInfo(fileLocation).GetFiles("fr*.xml", SearchOption.AllDirectories);
                 if (files.Length == 0)
@@ -71,7 +70,7 @@ namespace FrebViewer
             return headers;
         }
 
-        public string GetFileContent(string filename)
+        public string GetContent(string filename)
         {
             string fileLocation = WebConfigurationManager.AppSettings["location"];
             string[] filePaths = Directory.GetFiles(fileLocation, filename, SearchOption.AllDirectories);
@@ -82,18 +81,19 @@ namespace FrebViewer
             return inputXml.ToString();
         }
 
-        private void GetDetailsFromFREBFile(string p, out string url, out string verb, out string appPool, out int statusCode, out int timeTaken)
+        private void GetDetailsFromFREBFile(string file, out string url, out string verb, out string appPool, out int statusCode, out int timeTaken)
         {
             string text;
-            verb = (text = "");
+            verb = text = "";
             string text2;
-            appPool = (text2 = text);
+            appPool = text2 = text;
             url = text2;
-            statusCode = (timeTaken = 0);
+            statusCode = timeTaken = 0;
+
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(p);
+                xmlDocument.Load(file);
                 XmlNode xmlNode = xmlDocument.SelectSingleNode("failedRequest");
                 url = xmlNode.Attributes["url"].Value;
                 verb = xmlNode.Attributes["verb"].Value;
@@ -113,7 +113,7 @@ namespace FrebViewer
                         string text3 = " ";
                         string text4 = " ";
                         string text5 = " ";
-                        TextReader textReader = new StreamReader(p);
+                        TextReader textReader = new StreamReader(file);
                         while (!text3.Contains("failedRequest url"))
                         {
                             text3 = textReader.ReadLine();

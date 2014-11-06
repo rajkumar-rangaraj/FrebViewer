@@ -15,11 +15,11 @@ namespace FrebViewer.Controllers
     {
         public HttpResponseMessage Get()
         {
-            NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-            string filename = nvc["filename"];
-            var webapi = new Files();
-            var content = webapi.GetFileContent(filename);
-            //content = "hello";
+            NameValueCollection queryString = HttpUtility.ParseQueryString(Request.RequestUri.Query);
+            string filename = queryString["filename"];
+
+            var file = new Files();
+            var content = file.GetContent(filename);
             var resp = new HttpResponseMessage(HttpStatusCode.OK);
             resp.Content = new StringContent(content, Encoding.UTF8, "text/xml");
             resp.Headers.CacheControl = new CacheControlHeaderValue();
