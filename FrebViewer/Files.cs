@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Configuration;
 using System.Xml;
 
@@ -30,7 +31,15 @@ namespace FrebViewer
                     flag = false;
 
 
+
                 string fileLocation = WebConfigurationManager.AppSettings["location"];
+
+                if (IsRunningInMAWS())
+                {
+                    fileLocation = Environment.ExpandEnvironmentVariables(@"%HOME%\LogFiles\");
+                }
+
+
                 FileInfo[] files = new DirectoryInfo(fileLocation).GetFiles("fr*.xml", SearchOption.AllDirectories);
                 if (files.Length == 0)
                 {
@@ -73,6 +82,12 @@ namespace FrebViewer
         public string GetContent(string filename)
         {
             string fileLocation = WebConfigurationManager.AppSettings["location"];
+
+            if (IsRunningInMAWS())
+            {
+                fileLocation = Environment.ExpandEnvironmentVariables(@"%HOME%\LogFiles\");
+            }
+
             string[] filePaths = Directory.GetFiles(fileLocation, filename, SearchOption.AllDirectories);
 
             string inputXml = File.ReadAllText(filePaths[0]);
@@ -174,5 +189,14 @@ namespace FrebViewer
                 }
             }
         }
+
+        public static bool IsRunningInMAWS() 
+         { 
+             if (HttpContext.Current.Request.Headers["Host"].Contains("scm") || HttpContext.Current.Request.Headers["Host"].Contains("azurewebsites.net")) 
+                 return true; 
+             else 
+                 return false; 
+         } 
+
     }
 }
