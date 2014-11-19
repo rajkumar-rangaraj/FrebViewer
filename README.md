@@ -7,5 +7,7 @@ FrebViewer Azure site extension lists URL, Verb, AppPoolName, StatusCode & TimeT
 Features
 
 •	Option to sort & search requests by Status Code, Time Taken, Application Pool Name, Verb, File Name & URL
+
 •	Paging option which allows to display the number of requests in the FREB Viewer
+
 •	One of key important feature “FREB contains keyword” is to search the text and list only the FREB file information which contains that text 
