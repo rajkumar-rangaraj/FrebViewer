@@ -1,6 +1,6 @@
 ﻿$(function () {
     $("#grid").jqGrid({
-        url: "/GetList",
+        url: "GetList",
         datatype: 'json',
         mtype: 'Get',
         postData: {
@@ -41,7 +41,7 @@
             var grid = $('#grid'),
             selRowId = grid.jqGrid('getGridParam', 'selrow'),
             FileName = grid.jqGrid('getCell', selRowId, 'FileName');
-            var url = "/GetFile?filename=" + FileName;
+            var url = "GetFile?filename=" + FileName;
             window.open(url);
         },
         loadComplete: function () {

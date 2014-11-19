@@ -106,6 +106,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\FREBGrid.js" />
     <Content Include="Scripts\i18n\grid.locale-en.js" />
+    <None Include="Properties\PublishProfiles\FileSystem.pubxml" />
     <None Include="Properties\PublishProfiles\testFREB - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testFREB - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -115,7 +116,9 @@
     <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
